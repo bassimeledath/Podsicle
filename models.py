@@ -35,7 +35,7 @@ class GeminiText(model):
 
     def authenticate(self):
         google_api_key = os.getenv('GOOGLE_API_KEY')
-        genai.configure(api_key="AIzaSyCw_j_pLlzF6hNjejdkTY2L8HK2gCA2sak")
+        genai.configure(api_key=google_api_key)
         self.model = genai.GenerativeModel(self.model_name)
 
     def generate_completion(self, prompt: str, **kwargs) -> str:
@@ -123,7 +123,6 @@ class GoogleTTS(model):
             """
             Initialize the GoogleTTS client.
             """
-            os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'podsicle_tts.json'
             self.client = texttospeech.TextToSpeechClient()
 
         def generate_completion(self, prompt: str, output_file_path: str = "output.mp3", **kwargs):
