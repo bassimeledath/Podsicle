@@ -1,6 +1,3 @@
-# Ignore the 'learning' folder with my playground files
-learning
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
