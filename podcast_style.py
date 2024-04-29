@@ -10,13 +10,15 @@ class PodcastStyler:
         self.host = GeminiText()
         self.guest = GeminiText()
         self.podcast = PodcastMaker(url)
+        self.transcript = {'host':[], 'guest':[]}
     
     def start_pod(self):
         self.intro = self.host.generate_completion(self.begin_prompt)
         self.guest_intro = self.guest.generate_completion(f"""You are the guest to a podcast show. The previous message was {self.intro}, reply to the previous in a short\
                                                         introduction. Do not put placeholders for your name. Just thank for the opportunity and share your excitement to\
                                                         talk about the topic today.""")
-        return self.guest_intro
+        self.transcript['host'].append(self.intro)
+        self.transcript['guest'].append(self.guest_intro)
     
     def end_pod(self, previous_message):
         self.closing_h = self.host.generate_completion(f""""You are the host of a podcast show. Give a short comment about their last answer: {previous_message}, then give a message to conclude the\
@@ -35,15 +37,14 @@ class PodcastStyler:
         self.quest_ans = self.podcast.generate_podcast_text()
         self.quest = self.quest_ans[0]
         self.ans = self.quest_ans[1]
-        self.start = self.host.generate_completion(f"""As a podcast host, you are about to start the question in the show. Give a small comment about how\
+        self.start_pod()
+        self.star_quest = self.host.generate_completion(f"""As a podcast host, you are about to start the questions in the show. Give a small comment about how\
                                the conversation will start now. Then start with the following question: {self.quest[0]}.\
                                 Return only the text in paragraph format.""")
-        # Start dictionary to store transcript
-        self.transcript = {'host': [self.start_pod()]}
-        self.transcript['guest'] = [self.start]
+        self.transcript['host'].append(self.star_quest)
 
         # Add first question interaction to transcript
-        previous_mess = self.start
+        previous_mess = self.star_quest
         previous_mess = self.guest.generate_completion(f"""You are the guest at a podcast show. The previous message was: {previous_mess}. This is the answer you must give to the host: {self.ans[0]},\
                                 You must mention every part of the answer. You must preface this interaction in a conversational way. You must never start with 'absolutely' or 'certainly'.\
                                 Give this answer in a clear way. Just return your part as the guest in a paragraph text format.""")
