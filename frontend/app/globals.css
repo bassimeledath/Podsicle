@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+  .background-gradient {
+    background-color: #fff;
+    background-image: radial-gradient(
+        at 21% 11%,
+        rgba(186, 186, 233, 0.53) 0,
+        transparent 50%
+      ),
+      radial-gradient(at 85% 0, hsla(46, 57%, 78%, 0.52) 0, transparent 50%),
+      radial-gradient(at 91% 36%, rgba(194, 213, 255, 0.68) 0, transparent 50%),
+      radial-gradient(at 8% 40%, rgba(251, 218, 239, 0.46) 0, transparent 50%);
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.left-column {
+  width: 250px; /* Adjust the width as needed */
+  transition: transform 0.3s ease-in-out;
+}
+
+.left-column.hidden {
+  transform: translateX(-100%);
+}
+
+.visible {
+  transform: translateX(0);
+}
+
+.btn-collapse {
+  position: absolute;
+  z-index: 10;
+  /* Style your button as needed */
+}
+
+/* Rest of your styles */
+.chatbox {
+  width: 100%;
+  height: calc(100vh - 10rem);
+  align-items: center;
+}
+
+.chat-container {
+  overflow: hidden; overflow-y: scroll;
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 70rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.chat-container .right {
+  align-self: flex-end;
+}
+
+.chatImg {
+  object-fit: cover;
+  width: 1.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.5rem;
+}
+.chat {
+  margin: 1rem;
+  padding: 0.5rem 0.5rem;
+  font-size: 1.2rem;
+  max-width: 90%;
+  word-wrap: break-word;
+}
+
+.left {
+  background: rgba(28, 30, 58, 1);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  margin-left: 0.5rem;
+}
+
+.right {
+  background: rgb(86, 97, 251);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  margin-right: 0.5rem;
+}
+
+.text {
+  color: #fff;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes typing {
+  from { width: 0;}
+  to { width: 100%;}
+}
+
+@keyframes blinkCursor {
+  from { border-right-color: transparent; }
+  to { border-right-color: black; }
+}
+
+.typing-animation {
+  border-right: 2px solid black; /* Simulates the cursor */
+  white-space: nowrap;
+  overflow: hidden; /* Ensures the content is clipped */
+  display: inline-block; /* Allows the element to be sized by its content */
+  animation: typing 2s steps(40, end), blinkCursor 0.75s step-end infinite;
+}
+
+.custom-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #ddd;
+  --track-color: #9496FD; /* Change the color here */
+}
